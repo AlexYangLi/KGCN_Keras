@@ -3,6 +3,7 @@
 from keras.layers import *
 from keras.regularizers import l2
 from keras.models import Model
+from keras import backend as K
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
 
 from layers import Aggregator
