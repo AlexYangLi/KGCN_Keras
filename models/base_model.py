@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from keras.callbacks import *
 
 from config import ModelConfig
