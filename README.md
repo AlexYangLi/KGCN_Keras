@@ -4,9 +4,10 @@ This is a pure keras implementation of Knowledge Graph Convolution Network (KGCN
 the paper [Wang et.al. Knowledge Graph Convolution Networks for Recommender Systems. WWW2019](https://dl.acm.org/citation.cfm?id=3313417). 
 Author's tensorflow implementation is available in this [repo](https://github.com/hwwang55/KGCN).  
 
-## Requirements 
-- python==3.6
-- Keras==2.2.4
+## Environments 
+- python==3.6.6
+- Keras==2.3.0
+- tensorflow-gpu==1.13.1
 
 ## Run
 
