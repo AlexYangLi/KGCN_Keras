@@ -32,3 +32,8 @@ python3 main.py
 ```
 
 ## Performance
+
+## Reference
+
+- [Knowledge Graph Convolution Networks for Recommender System](https://dl.acm.org/citation.cfm?id=3313417), WWW2019  
+- [hwwang55/KGCN](https://github.com/hwwang55/KGCN)
