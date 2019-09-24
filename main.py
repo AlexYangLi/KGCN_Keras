@@ -16,7 +16,7 @@ from config import ModelConfig, PROCESSED_DATA_DIR, USER_VOCAB_TEMPLATE, ENTITY_
     ITEM_VOCAB_TEMPLATE
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 
 def get_optimizer(op_type, learning_rate):
@@ -208,7 +208,7 @@ if __name__ == '__main__':
           batch_size=65536,
           aggregator_type='sum',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
     train(dataset='movie',
           neighbor_sample_size=4,
           embed_dim=32,
@@ -219,7 +219,7 @@ if __name__ == '__main__':
           batch_size=65536,
           aggregator_type='concat',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
     train(dataset='movie',
           neighbor_sample_size=4,
           embed_dim=32,
@@ -230,7 +230,7 @@ if __name__ == '__main__':
           batch_size=65536,
           aggregator_type='neigh',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
 
     train(dataset='movie',
           neighbor_sample_size=8,
@@ -242,7 +242,7 @@ if __name__ == '__main__':
           batch_size=128,
           aggregator_type='sum',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
     train(dataset='movie',
           neighbor_sample_size=8,
           embed_dim=16,
@@ -253,7 +253,7 @@ if __name__ == '__main__':
           batch_size=128,
           aggregator_type='concat',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
     train(dataset='movie',
           neighbor_sample_size=8,
           embed_dim=16,
@@ -264,4 +264,4 @@ if __name__ == '__main__':
           batch_size=128,
           aggregator_type='neigh',
           n_epoch=50,
-          callbacks_to_add=['modelcheckpoint', 'earlystopping'])
+          callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
