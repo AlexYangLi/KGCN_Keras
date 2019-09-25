@@ -99,6 +99,8 @@ def train(dataset, neighbor_sample_size, embed_dim, n_depth, l2_weight, lr, opti
                                                                             valid_data,
                                                                             config.item_vocab_size)
     topk_p, topk_r = topk_eval(model, user_list, train_record, valid_record, item_set, k_list)
+    print(f'Logging Info - dev_auc: {auc}, dev_acc: {acc}, dev_f1: {f1}, dev_topk_p: {topk_p}, '
+          f'dev_topk_r: {topk_r}')
     train_log['dev_auc'] = auc
     train_log['dev_acc'] = acc
     train_log['dev_f1'] = f1
@@ -109,12 +111,14 @@ def train(dataset, neighbor_sample_size, embed_dim, n_depth, l2_weight, lr, opti
         model.load_swa_model()
         print('Logging Info - Evaluate over valid data based on swa model:')
         auc, acc, f1 = model.score(x=[valid_data[:, :1], valid_data[:, 1:2]], y=valid_data[:, 2:3])
-        topk_p, topk_r = topk_eval(model, user_list, train_record, dev_record, item_set, k_list)
+        topk_p, topk_r = topk_eval(model, user_list, train_record, valid_record, item_set, k_list)
         train_log['swa_dev_auc'] = auc
         train_log['swa_dev_acc'] = acc
         train_log['swa_dev_f1'] = f1
         train_log['swa_dev_topk_p'] = topk_p
         train_log['swa_dev_topk_r'] = topk_r
+        print(f'Logging Info - swa_dev_auc: {auc}, swa_dev_acc: {acc}, swa_dev_f1: {f1}, '
+              f'swa_dev_topk_p: {topk_p}, swa_dev_topk_r: {topk_r}')
 
     print('Logging Info - Evaluate over test data:')
     model.load_best_model()
@@ -129,6 +133,8 @@ def train(dataset, neighbor_sample_size, embed_dim, n_depth, l2_weight, lr, opti
     train_log['test_f1'] = f1
     train_log['test_topk_p'] = topk_p
     train_log['test_topk_r'] = topk_r
+    print(f'Logging Info - test_auc: {auc}, test_acc: {acc}, test_f1: {f1}, test_topk_p: {topk_p}, '
+          f'test_topk_r: {topk_r}')
 
     if 'swa' in config.callbacks_to_add:
         model.load_swa_model()
@@ -140,6 +146,8 @@ def train(dataset, neighbor_sample_size, embed_dim, n_depth, l2_weight, lr, opti
         train_log['swa_test_f1'] = f1
         train_log['swa_test_topk_p'] = topk_p
         train_log['swa_test_topk_r'] = topk_r
+        print(f'Logging Info - swa_test_auc: {auc}, swa_test_acc: {acc}, swa_test_f1: {f1}, '
+              f'swa_test_topk_p: {topk_p}, swa_test_topk_r: {topk_r}')
 
     train_log['timestamp'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     write_log(format_filename(LOG_DIR, PERFORMANCE_LOG), log=train_log, mode='a')
@@ -232,7 +240,7 @@ if __name__ == '__main__':
           n_epoch=50,
           callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
 
-    train(dataset='movie',
+    train(dataset='music',
           neighbor_sample_size=8,
           embed_dim=16,
           n_depth=1,
@@ -243,7 +251,7 @@ if __name__ == '__main__':
           aggregator_type='sum',
           n_epoch=50,
           callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
-    train(dataset='movie',
+    train(dataset='music',
           neighbor_sample_size=8,
           embed_dim=16,
           n_depth=1,
@@ -254,7 +262,7 @@ if __name__ == '__main__':
           aggregator_type='concat',
           n_epoch=50,
           callbacks_to_add=['modelcheckpoint', 'earlystopping', 'swa'])
-    train(dataset='movie',
+    train(dataset='music',
           neighbor_sample_size=8,
           embed_dim=16,
           n_depth=1,
